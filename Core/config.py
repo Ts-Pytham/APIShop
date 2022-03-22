@@ -4,7 +4,7 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     DATABASE_USERNAME : str = 'postgres'
-    DATABASE_PASSWORD : str = '75322357Johan'
+    DATABASE_PASSWORD : str = '123123'
     DATABASE_HOST : str = 'localhost'
     DATABASE_NAME : str = 'mydb'
 
