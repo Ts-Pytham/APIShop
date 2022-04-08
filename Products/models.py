@@ -1,4 +1,3 @@
-from itertools import product
 from sqlalchemy import Column, Integer, Text, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from Database.session import Base

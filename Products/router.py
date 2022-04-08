@@ -35,6 +35,13 @@ async def delete_category_by_id(category_id: int, db_session: Session = Depends(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category Not Found!")
     return await services.delete_category_by_id(category_id, db_session)
 
+@api_router.put("/products/category/{category_id}", response_model=schema.Category)
+async def update_category(category_id: int, category: schema.CategoryUpdate, db_session: Session = Depends(db.get_db)):
+    category = await services.update_category(category_id, category,db_session)
+    if not category:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category Not Found!")
+    return category
+
 @api_router.post('/products/', status_code=status.HTTP_201_CREATED)
 async def create_product(product_in: schema.ProductCreate, db_session: Session = Depends(db.get_db)):
     category = await validator.verify_category_exist(product_in.category_id, db_session)
@@ -47,9 +54,15 @@ async def create_product(product_in: schema.ProductCreate, db_session: Session =
     product = await services.create_new_product(product=product_in, db_session=db_session)
     return product
 
-@api_router.put('/products/{product_id}')
-async def update_product(product : schema.ProductUpdate, db_session: Session = Depends(db.get_db)):
-    pass
+@api_router.put('/products/{product_id}', response_model=schema.ProductUpdate)
+async def update_product(product_id : int, product : schema.ProductUpdate, db_session: Session = Depends(db.get_db)):
+    new_product = await services.get_product_by_id(product_id, db_session)
+    if not new_product:
+        raise HTTPException(
+            status_code=404,
+            detail="The product is not found",
+        )
+    return await services.update_product(product_id, product, db_session)
 
 @api_router.get('/products/', response_model=List[schema.Product])
 async def get_all_products(db_session: Session = Depends(db.get_db)):

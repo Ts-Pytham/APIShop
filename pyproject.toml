@@ -14,6 +14,7 @@ alembic = "^1.7.7"
 argon2 = "^0.1.10"
 passlib = "^1.7.4"
 pydantic = {extras = ["email"], version = "^1.9.0"}
+argon2-cffi = "^21.3.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from . import validator
 from . import models
 from . import schema
 
@@ -19,7 +20,7 @@ async def all_users(db_session: Session) -> List[models.User]:
     return users
 
 async def get_user_by_id(user_id: int, db_session: Session) -> Optional[models.User]:
-    user_info = db_session.query(models.User).get(user_id)
+    user_info = await validator.verify_user_exits(user_id, db_session)
     if not user_info:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data Not Found !")
     return user_info
@@ -27,3 +28,17 @@ async def get_user_by_id(user_id: int, db_session: Session) -> Optional[models.U
 async def delete_user_by_id(user_id: int, db_session: Session):
     db_session.query(models.User).filter(models.User.id == user_id).delete()
     db_session.commit()
+
+async def update_user(user_id: int, user: schema.UserUpdate, db_session : Session) -> Optional[schema.User]:
+    userc = models.User(**user.dict())
+    userc.id = user_id
+    db_session.query(models.User).filter(models.User.id == user_id).update(
+        {
+            models.User.name : userc.name, 
+            models.User.password : userc.password,
+            models.User.email : userc.email,
+
+        }, synchronize_session=False)
+    db_session.commit()
+    
+    return user

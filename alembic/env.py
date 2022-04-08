@@ -17,6 +17,7 @@ if config.config_file_name is not None:
 
 from Core.config import settings
 from Database.session import Base
+from Users.models import User
 from Products.models import Category, Product
 # add your model's MetaData object here
 # for 'autogenerate' support

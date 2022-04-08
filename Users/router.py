@@ -35,3 +35,23 @@ async def get_all_users(db_session: Session = Depends(db.get_db)):
 @api_router.get('/user/{user_id}', response_model=schema.User)
 async def get_user_by_id(user_id: int, db_session: Session = Depends(db.get_db)):
     return await services.get_user_by_id(user_id, db_session)
+
+@api_router.delete('/user/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
+async def delete_user_by_id(user_id: int, db_session: Session = Depends(db.get_db)):
+    user = await services.get_user_by_id(user_id, db_session)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="You have provided invalid user id.",
+        )
+    return await services.delete_user_by_id(user_id, db_session)
+
+@api_router.put('/user/{user_id}', response_model=schema.User)
+async def update_user(user_id: int, user: schema.UserUpdate, db_session: Session = Depends(db.get_db)):
+    userc = await services.get_user_by_id(user_id, db_session)
+    if not userc:
+        raise HTTPException(
+            status_code=404,
+            detail="You have provided invalid user id.",
+        )
+    return await services.update_user(user_id, user, db_session)

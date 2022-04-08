@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from Core.config import settings
 from Database import models
 from Products import router as product_router
-from User import router as user_router
+from Users import router as user_router
 
 
 app = FastAPI(title="My application", version="0.1")
