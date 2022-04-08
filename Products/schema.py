@@ -32,3 +32,28 @@ class Category(CategoryInDBBase):
 # Properties to stored in DB
 class CategoryInDB(CategoryInDBBase):
     pass
+
+class ProductBase(BaseModel):
+    name: str
+    quantity: int
+    description: str
+    price: float
+    category_id: int
+
+class ProductCreate(ProductBase):
+    pass
+
+class ProductUpdate(ProductBase):
+    pass
+
+class ProductInDBBase(ProductBase):
+    id: int
+    category: Category
+    class Config:
+        orm_mode = True
+
+class Product(ProductInDBBase):
+    pass
+
+class ProductInDB(ProductInDBBase):
+    pass

@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from Core.config import settings
 from typing import Generator
 
-engine = create_engine(settings.SQLALCHEMY_DATABASE_URI)
+engine = create_engine(settings.DATABASE_URI)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

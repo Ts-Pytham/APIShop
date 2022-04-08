@@ -11,6 +11,9 @@ uvicorn = {extras = ["standard"], version = "^0.17.6"}
 SQLAlchemy = "^1.4.32"
 psycopg2 = "^2.9.3"
 alembic = "^1.7.7"
+argon2 = "^0.1.10"
+passlib = "^1.7.4"
+pydantic = {extras = ["email"], version = "^1.9.0"}
 
 [tool.poetry.dev-dependencies]
 
