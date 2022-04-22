@@ -10,7 +10,10 @@ class Settings(BaseSettings):
     DATABASE_NAME : str = 'mydb'
 
     DATABASE_URI : str = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
-
+    ACCESS_TOKEN_EXPIRE_MINUTES : int = 60 * 24 * 8  # 60 minutes * 24 hours * 8 days = 8 days
+    SECRET_KEY : str = "J9ICKD@QLKF1010'FKfkfkvckoltgñac@493kflqa"
+    ALGORITHM : str = "HS512"
+    
     class Config:
         case_sensitive : bool = True
 

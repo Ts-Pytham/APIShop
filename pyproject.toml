@@ -15,6 +15,8 @@ argon2 = "^0.1.10"
 passlib = "^1.7.4"
 pydantic = {extras = ["email"], version = "^1.9.0"}
 argon2-cffi = "^21.3.0"
+python-jose = {extras = ["cryptographic"], version = "^3.3.0"}
+python-multipart = "^0.0.5"
 
 [tool.poetry.dev-dependencies]
 
